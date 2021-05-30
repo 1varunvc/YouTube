@@ -1,18 +1,30 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
   <meta charset="utf-8">
-  <title>One Mus</title>
+  <title>YouTube</title>
 </head>
 
 <body>
-  <iframe id="ytIframe00" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script type="text/javascript">
-    $("#ytIframe00").attr("src", "https://www.youtube.com/embed/" + "<%= iFrameVideoId0 %>");
-  </script>
+  <h3>Watch</h3>
+  <% for(i = 0; i < ytQueryEjs.length; i++) { %>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= ytQueryEjs[i] %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <% } %>
+
+  <h3>Covers</h3>
+  <% for(i = 0; i < ytCoverUniqueEjs.length; i++) { %>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= ytCoverUniqueEjs[i] %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <% } %>
+
+  <h3>Live Performance</h3>
+  <% for(i = 0; i < ytLiveUniqueEjs.length; i++) { %>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= ytLiveUniqueEjs[i] %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <% } %>
+
+
 </body>
 
 </html>
