@@ -64,11 +64,12 @@ let urlOfYtAxiosGetFunc = "";
 // let ytResponse = "";             // Declare these two locally.
 // let ytExtractedResult = [];
 
+// AIzaSyCj80kCJOCJw0VzqkYqjfnQ9Kyxu-MbxMI
 // This function GETs data, parses it, allocates required values in an array.
 async function ytAxiosGetFunc(queryOfYtAxiosGetFunc, maxResultsOfYtAxiosGetFunc) {
 
   let ytExtractedResult = [];
-  apiKey = "AI...U"
+  apiKey = "AIzaSyC5asO20CAohIW_wEkgJB0XHVH4bOZSN5U"
   urlOfYtAxiosGetFunc = "https://www.googleapis.com/youtube/v3/search?key=" + apiKey + "&part=snippet&order=relevance&type=video";
 
   try {
@@ -88,9 +89,6 @@ async function ytAxiosGetFunc(queryOfYtAxiosGetFunc, maxResultsOfYtAxiosGetFunc)
       // console.log(ytExtractedResult);
     }
     return (ytExtractedResult);
-
-    // ytExtractedResult.length = 0;        // These two were updating ytQueryAppJs, everytime the function ran.
-    // ytResponse.length = 0;
   } catch (e) {
     console.log(e);
   }
