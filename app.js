@@ -7,6 +7,9 @@ const https = require("https");
 // body-parser to read client's submitted queryValue
 const bodyParser = require("body-parser");
 
+
+const axios = require("axios");
+
 // This app constant is created to be able to access the methods available in 'express' package.
 const app = express();
 
@@ -28,6 +31,7 @@ app.set('view engine', 'ejs');
 let i = 0;
 
 let query = "";
+let endpoint = "";
 
 let ytQueryResult = "";
 let ytCoverResult = "";
@@ -49,174 +53,142 @@ app.get("/", function(req, res) {
 
 // https://stackoverflow.com/a/14930567/14597561
 function compareAndRemove(removeFromThis, compareToThis) {
-  return (removeFromThis = removeFromThis.filter(val => !compareToThis.includes(val)));
+  removeFromThis = removeFromThis.filter(val => !compareToThis.includes(val));
+  return (removeFromThis);
 }
 
-// Declaring variables for the function 'httpsYtGetFunc'
+// Declaring variables for the function 'ytAxiosGetFunc'
 let apiKey = "";
-let urlOfYtGetFunc = "";
-let resultOfYtGetFunc = "";
-let extractedResultOfYtGetFunc = [];
+let urlOfYtAxiosGetFunc = "";
 
-// AIzaSyCj80kCJOCJw0VzqkYqjfnQ9Kyxu-MbxMI
-// This function GETs data, parses it, pushes required values in an array.
-function httpsYtGetFunc(queryOfYtGetFunc, callback) {
+// let ytResponse = "";             // Declare these two locally.
+// let ytExtractedResult = [];
 
-  apiKey = "AIzaSyCj80kCJOCJw0VzqkYqjfnQ9Kyxu-MbxMI"
-  urlOfYtGetFunc = "https://www.googleapis.com/youtube/v3/search?key=" + apiKey + "&part=snippet&q=" + queryOfYtGetFunc + "&maxResults=4&order=relevance&type=video";
+// This function GETs data, parses it, allocates required values in an array.
+async function ytAxiosGetFunc(queryOfYtAxiosGetFunc, maxResultsOfYtAxiosGetFunc) {
 
-  // GETting data and storing it in chunks.
-  https.get(urlOfYtGetFunc, (response) => {
-    const chunks = []
-    response.on('data', (d) => {
-      chunks.push(d)
-    })
+  let ytExtractedResult = [];
+  apiKey = "AI...U"
+  urlOfYtAxiosGetFunc = "https://www.googleapis.com/youtube/v3/search?key=" + apiKey + "&part=snippet&order=relevance&type=video";
 
-    // Parsing the chunks
-    response.on('end', () => {
-      resultOfYtGetFunc = JSON.parse((Buffer.concat(chunks).toString()))
-      // console.log(resultOfYtGetFunc)
-
-      // Extracting useful data, and allocating it.
-      for (i = 0; i < (resultOfYtGetFunc.items).length; i++) {
-        extractedResultOfYtGetFunc.push(resultOfYtGetFunc.items[i].id.videoId);
-        // console.log(extractedResultOfYtGetFunc);
+  try {
+    let ytResponse = await axios({
+      url: urlOfYtAxiosGetFunc,
+      method: "get",
+      params: {
+        q: queryOfYtAxiosGetFunc,
+        maxResults: maxResultsOfYtAxiosGetFunc
       }
-      callback (null, extractedResultOfYtGetFunc); // move the callback here
     })
-  })
-  // callback (null, extractedResultOfYtGetFunc);
+
+    let ytResult = ytResponse.data;
+
+    for (i = 0; i < (ytResult.items).length; i++) {
+      ytExtractedResult[i] = ytResult.items[i].id.videoId;
+      // console.log(ytExtractedResult);
+    }
+    return (ytExtractedResult);
+
+    // ytExtractedResult.length = 0;        // These two were updating ytQueryAppJs, everytime the function ran.
+    // ytResponse.length = 0;
+  } catch (e) {
+    console.log(e);
+  }
 }
 
-app.post("/", function(req, res) {
+app.post("/", async function(req, res) {
 
   // Accessing the queryValue user submitted in index.html.
   query = req.body.queryValue;
 
   // Fetcing top results related to user's query and putting them in the array.
-  ytQueryAppJs = httpsYtGetFunc(query, (err, ytQueryAppJs) => {
-    console.log("ytQueryAppJs:");
-    console.log(ytQueryAppJs);
-  });
+  ytQueryAppJs = await ytAxiosGetFunc(query, 4);
+  console.log("ytQueryAppJs:");
+  console.log(ytQueryAppJs);
 
-  // // Fetching 'cover' songs related to user's query and putting them in the array.
-  // if (query.includes("cover") == true) {
-  //   ytCoverAppJs = httpsYtGetFunc(query);
-  //   console.log("ytCoverAppJs:");
-  //   console.log(ytCoverAppJs);
-  //
-  //   // Removing redundant values.
-  //   ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
-  //   console.log("ytCoverUniqueAppJs:");
-  //   console.log(ytCoverUniqueAppJs);
-  // } else {
-  //   ytCoverAppJs = httpsYtGetFunc(query + " cover");
-  //   console.log("ytCoverAppJs:");
-  //   console.log(ytCoverAppJs);
-  //
-  //   // Removing redundant values.
-  //   ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
-  //   console.log("ytCoverUniqueAppJs:");
-  //   console.log(ytCoverUniqueAppJs);
-  // }
-  //
-  // // Fetching 'live performances' related to user's query and putting them in the array.
-  // if (query.includes("live") == true) {
-  //   ytLiveAppJs = httpsYtGetFunc(query);
-  //   console.log("ytLiveAppJs:");
-  //   console.log(ytLiveAppJs);
-  //
-  //   // Removing redundant values.
-  //   ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytQueryAppJs);
-  //   ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytCoverAppJs);
-  //   console.log("ytLiveUniqueAppJs:");
-  //   console.log(ytLiveUniqueAppJs);
-  // } else {
-  //   ytLiveAppJs = httpsYtGetFunc(query + " live");
-  //   console.log("ytLiveAppJs:");
-  //   console.log(ytLiveAppJs);
-  //
-  //   // Removing redundant values.
-  //   ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytQueryAppJs);
-  //   ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytCoverAppJs);
-  //   console.log("ytLiveUniqueAppJs:");
-  //   console.log(ytLiveUniqueAppJs);
-  // }
+
+  // Fetching 'cover' songs related to user's query and putting them in the array.
+  if (query.includes("cover") == true) {
+    ytCoverAppJs = await ytAxiosGetFunc(query, 8);
+    console.log("ytCoverAppJs:");
+    console.log(ytCoverAppJs);
+
+    // Removing redundant values.
+    ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
+
+    console.log("ytCoverUniqueAppJs:");
+    console.log(ytCoverUniqueAppJs);
+  } else if (query.includes("live") == true) {
+    ytCoverAppJs = await ytAxiosGetFunc(query.replace("live", " cover "), 8);
+    console.log("ytCoverAppJs:");
+    console.log(ytCoverAppJs);
+
+    // Removing redundant values.
+    ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
+
+    console.log("ytCoverUniqueAppJs:");
+    console.log(ytCoverUniqueAppJs);
+  } else {
+    ytCoverAppJs = await ytAxiosGetFunc(query + " cover ", 8);
+    console.log("ytCoverAppJs:");
+    console.log(ytCoverAppJs);
+
+    // Removing redundant values.
+    ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
+    console.log("ytCoverUniqueAppJs:");
+    console.log(ytCoverUniqueAppJs);
+  }
+
+  // Fetching 'live performances' related to user's query and putting them in the array.
+  if (query.includes("live") == true) {
+    ytLiveAppJs = await ytAxiosGetFunc(query, 8);
+    console.log("ytLiveAppJs:");
+    console.log(ytLiveAppJs);
+
+    // Removing redundant values.
+    ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytQueryAppJs.concat(ytCoverUniqueAppJs));
+
+    console.log("ytLiveUniqueAppJs:");
+    console.log(ytLiveUniqueAppJs);
+  } else if (query.includes("cover") == true) {
+    ytLiveAppJs = await ytAxiosGetFunc(query.replace("cover", " live "), 8);
+    console.log("ytLiveAppJs:");
+    console.log(ytLiveAppJs);
+
+    // Removing redundant values.
+    ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytQueryAppJs.concat(ytCoverUniqueAppJs));
+
+    console.log("ytLiveUniqueAppJs:");
+    console.log(ytLiveUniqueAppJs);
+  } else {
+    ytLiveAppJs = await ytAxiosGetFunc(query + " live ", 8);
+    console.log("ytLiveAppJs:");
+    console.log(ytLiveAppJs);
+
+    // Removing redundant values.
+    ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytQueryAppJs.concat(ytCoverUniqueAppJs));
+
+    console.log("ytLiveUniqueAppJs:");
+    console.log(ytLiveUniqueAppJs);
+  }
 
   // The 'results' named EJS file is rendered and fed in response. The 'required' data is passed into it using the following variable(s).
-  // res.render("results", {
-  //   ytQueryEjs: ytQueryAppJs,
-  //   ytCoverUniqueEjs: ytCoverUniqueAppJs,
-  //   ytLiveUniqueEjs: ytLiveUniqueAppJs
-  // });
-  // console.log("Value to be sent for rendering: ");
-  // console.log(ytQueryAppJs);
-  // console.log(ytCoverUniqueEjs);
-  // console.log(ytLiveUniqueEjs);
+  res.render("results", {
+    ytQueryEjs: ytQueryAppJs,
+    ytCoverUniqueEjs: ytCoverUniqueAppJs,
+    ytLiveUniqueEjs: ytLiveUniqueAppJs
+  });
+  console.log("Values to be sent for rendering: ");
+  console.log(ytQueryAppJs);
+  console.log(ytCoverUniqueAppJs);
+  console.log(ytLiveUniqueAppJs);
 
-  // // Emptying all the arrays.
-  // ytQueryAppJs.length = 0;
-  //
-  // ytCoverAppJs.length = 0;
-  // ytCoverUniqueAppJs.length = 0;
-  //
-  // ytLiveAppJs.length = 0;
-  // ytLiveUniqueAppJs.length = 0;
+  // Emptying all the arrays.
+  ytQueryAppJs.length = 0;
 
-  //     // Fetching cover results.
-  //     if (query.includes("cover") == true) {
-  //       url = "https://www.googleapis.com/youtube/v3/search?key=" + apiKey + "&part=snippet&q=" + query + "&maxResults=8&order=relevance&type=video";
-  //
-  //       https.get(url, (response) => {
-  //         const chunks = []
-  //         response.on('data', (d) => {
-  //           chunks.push(d)
-  //         })
-  //
-  //         response.on('end', () => {
-  //           var ytCoverResult = JSON.parse((Buffer.concat(chunks).toString()))
-  //           // console.log(ytCoverResult)
-  //
-  //           // Extracting useful data, and allocating it.
-  //           for (i = 0; i < (ytCoverResult.items).length; i++) {
-  //             ytCoverAppJs[i] = ytCoverResult.items[i].id.videoId;
-  //           }
-  //           console.log("ytCoverAppJs:");
-  //           console.log(ytCoverAppJs);
-  //
-  //           ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
-  //           console.log("ytCoverUniqueAppJs:");
-  //           console.log(ytCoverUniqueAppJs);
-  //
-  //
-  //         });
-  //       });
-  //     } else {
-  //       url = "https://www.googleapis.com/youtube/v3/search?key=" + apiKey + "&part=snippet&q=" + query + "cover" + "&maxResults=8&order=relevance&type=video";
-  //
-  //       https.get(url, (response) => {
-  //         const chunks = []
-  //         response.on('data', (d) => {
-  //           chunks.push(d)
-  //         })
-  //
-  //         response.on('end', () => {
-  //           var ytCoverResult = JSON.parse((Buffer.concat(chunks).toString()))
-  //           // console.log(ytCoverResult)
-  //
-  //           // Extracting useful data, and allocating it.
-  //           for (i = 0; i < (ytCoverResult.items).length; i++) {
-  //             ytCoverAppJs[i] = ytCoverResult.items[i].id.videoId;
-  //           }
-  //           console.log("ytCoverAppJs:");
-  //           console.log(ytCoverAppJs);
-  //
-  //           ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
-  //           console.log("ytCoverUniqueAppJs:");
-  //           console.log(ytCoverUniqueAppJs);
-  //         });
-  //       });
-  //     }
-  //   });
-  // });
+  ytCoverAppJs.length = 0;
+  ytCoverUniqueAppJs.length = 0;
+
+  ytLiveAppJs.length = 0;
+  ytLiveUniqueAppJs.length = 0;
 });
