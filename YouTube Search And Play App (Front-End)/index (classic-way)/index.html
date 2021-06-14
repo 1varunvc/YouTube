@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>One Music</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap">
+</head>
+
+<body onload="onPageLoad()">
+
+  <section class="logoSearchLogin">
+
+    <header>
+       <a class="logo" href="http://localhost:3000/"><img class="logoImg" src="on_platform_logo_dark.svg" alt="one_music_logo"></a>
+    </header>
+
+    <!-- POST request to fetch data related to queryValue.  -->
+    <form class="searchForm" action="/" method="post">
+      <input class="searchInput" id="queryId" type="search" name="queryValue" placeholder="Search" autocomplete="off"
+        value="Lorem Ipsum is simply dummy text of the printing and typesett."
+        required>
+      <button class="searchButton" type="submit" name="button">
+        &#5125;&#xFE0E;
+      </button>
+    </form>
+
+    <br> <br> <br>
+
+    <!-- <a class="login" href="auth/spotify"> -->
+    <section class="login">
+      <button class="loginButton" style="--content: 'Spotify Login';" onclick="location.href='auth/spotify';">
+        <div class="left"></div>
+        Spotify Login
+        <div class="right"></div>
+      </button>
+    </section>
+
+    <!-- </a> -->
+
+  </section>
+
+  <section class="logout">
+    <a class="logout" href="auth/logout">Logout</a>
+  </section>
+
+</body>
+
+</html>

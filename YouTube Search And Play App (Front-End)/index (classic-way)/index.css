@@ -1,0 +1,264 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap'); */
+
+body {
+  background-color: hsl(0,0%,0%);
+  color: hsl(0,0%,100%);
+  font-family: 'Roboto Slab', serif;
+}
+
+/* Centering all the elements */
+.logoSearchLogin {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logout {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  transform: translate(-50%, -50%);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sizing and decorating all the elements */
+.logoImg {
+  width: 25em;
+  height: auto;
+}
+
+.searchInput {
+  background-color: hsl(0,0%,8.2%);
+  color: hsl(0,0%,100%);
+  height: 7rem;
+  width: 47rem;
+  font-size: 3.5rem;
+  padding: 2rem 0.25rem 2rem 4rem;
+  margin-top: 3rem;
+  margin-right: 0;
+  border: none;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+.searchButton {
+  background-color: hsl(0,0%,8.2%);
+  color: hsl(0, 0%, 50%);
+  height: 7rem;
+  font-size: 4.5rem;
+  margin-top: 3rem;
+  margin-left: 0;
+  border: none;
+  padding: 0 1.75rem;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+a.logout {
+  font-size: 2rem;
+}
+
+/* The red-effect on 'focus' */
+input.searchInput:focus, button.searchButton:focus, input.searchInput:hover, button.searchButton:hover {
+    border-color: hsla(206.5, 80.2%, 62.4%, 0.8);
+    outline: 0;
+    outline: thin dotted 9;
+    -webkit-box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.075),0 0 8px hsla(0, 100%, 50%, 0.6);
+    -moz-box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.075),0 0 8px hsla(0, 100%, 50%, 0.6);
+    box-shadow: inset 0 1px 1px hsla(0, 0%, 0%, 0.075),0 0 8px hsla(0, 100%, 50%, 0.6);
+}
+
+/* Decoratin Login Button */
+:root {
+  --text-color: hsl(0,0%,100%);
+  --shadow-color: hsla(129, 40%, 52%, 0.4);
+  --btn-color: #1db954;
+  --bg-color: #141218;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.login {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: var(--bg-color); */
+}
+
+button.loginButton {
+  position:relative;
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  font-family: "Roboto Slab", serif;
+  /* font-weight: 900; */
+  /* text-transform: uppercase; */
+  font-size: 30px;
+  color: var(--text-color);
+
+  background-color: var(--btn-color);
+  box-shadow: var(--shadow-color) 2px 2px 22px;
+  border-radius: 4px;
+  z-index: 0;
+  overflow: hidden;
+}
+
+button.loginButton:focus {
+  outline-color: transparent;
+  box-shadow: var(--btn-color) 2px 2px 22px;
+}
+
+.right::after, button.loginButton::after {
+  content: var(--content);
+  display: block;
+  position: absolute;
+  white-space: nowrap;
+  padding: 40px 40px;
+  pointer-events:none;
+}
+
+button.loginButton::after{
+  font-weight: 200;
+  top: -30px;
+  left: -20px;
+}
+
+.right, .left {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+.right {
+  left: 66%;
+}
+.left {
+  right: 66%;
+}
+.right::after {
+  top: -30px;
+  left: calc(-66% - 20px);
+
+  background-color: var(--bg-color);
+  color:transparent;
+  transition: transform .4s ease-out;
+  transform: translate(0, -90%) rotate(0deg)
+}
+
+button.loginButton:hover .right::after {
+  transform: translate(0, -47%) rotate(0deg)
+}
+
+button.loginButton .right:hover::after {
+  transform: translate(0, -50%) rotate(-7deg)
+}
+
+button.loginButton .left:hover ~ .right::after {
+  transform: translate(0, -50%) rotate(7deg)
+}
+
+/* bubbles */
+button.loginButton::before {
+  content: '';
+  pointer-events: none;
+  opacity: .6;
+  background:
+    radial-gradient(circle at 20% 35%,  transparent 0,  transparent 2px, var(--text-color) 3px, var(--text-color) 4px, transparent 4px),
+    radial-gradient(circle at 75% 44%, transparent 0,  transparent 2px, var(--text-color) 3px, var(--text-color) 4px, transparent 4px),
+    radial-gradient(circle at 46% 52%, transparent 0, transparent 4px, var(--text-color) 5px, var(--text-color) 6px, transparent 6px);
+
+  width: 100%;
+  height: 300%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  animation: bubbles 5s linear infinite both;
+}
+
+@keyframes bubbles {
+  from {
+    transform: translate();
+  }
+  to {
+    transform: translate(0, -66.666%);
+  }
+}
+
+/* Un-decorating Logout */
+a.logout:link {
+ color: white;
+ text-decoration: none;
+}
+
+a.logout:visited {
+ color: white;
+ text-decoration: none;
+}
+
+a.logout:hover {
+ color: white;
+ text-decoration: none;
+}
+
+a.logout:active {
+ color: white;
+ text-decoration: none;
+}
+
+/* Extending Compatobility */
+/* https://stackoverflow.com/a/7354648/14597561 */
+@media screen and (min-width: 741px)   { /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .logoImg {
+    width: 20em;
+  }
+
+  .searchInput {
+    height: 4rem;
+    width: 40.75rem;
+    font-size: 1.5rem;
+    padding: 2rem 0.25rem 2rem 2rem;
+    margin-top: 3rem;
+  }
+
+  .searchButton {
+    background-color: hsl(0,0%,8.2%);
+    color: hsl(0, 0%, 50%);
+    height: 4rem;
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-left: 0;
+    padding: 0 1rem;
+  }
+
+  button.loginButton {
+    font-size: 1.5rem;
+  }
+
+  a.logout {
+    font-size: 1rem;
+  }
+}
