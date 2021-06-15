@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
   <title>One Music</title>
   <link rel="stylesheet" href="index.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -27,13 +27,11 @@
       </button>
     </form>
 
-    <br> <br> <br>
-
     <!-- <a class="login" href="auth/spotify"> -->
     <section class="login">
-      <button class="loginButton" style="--content: 'Spotify Login';" onclick="location.href='auth/spotify';">
+      <button class="loginButton" style="--content: '';" onclick="location.href='auth/spotify';">
         <div class="left"></div>
-        Spotify Login
+          <article class="loginButtonFrontContent">Spotify Login</article> <!-- The padding of the button, is made around 'this' text.  -->
         <div class="right"></div>
       </button>
     </section>

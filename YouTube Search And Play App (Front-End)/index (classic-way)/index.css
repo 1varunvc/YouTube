@@ -9,7 +9,7 @@ body {
 /* Centering all the elements */
 .logoSearchLogin {
   position: absolute;
-  top: 43%;
+  top: 42%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -41,18 +41,22 @@ body {
 
 /* Sizing and decorating all the elements */
 .logoImg {
-  width: 25em;
+  width: 9.5em;
   height: auto;
+}
+
+.searchForm {
+  margin-top: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .searchInput {
   background-color: hsl(0,0%,8.2%);
   color: hsl(0,0%,100%);
-  height: 7rem;
-  width: 47rem;
-  font-size: 3.5rem;
-  padding: 2rem 0.25rem 2rem 4rem;
-  margin-top: 3rem;
+  height: 3rem;
+  width: 20rem;
+  font-size: 0.9rem;
+  padding: 0 0rem 0 1.5rem;
   margin-right: 0;
   border: none;
   border-top-left-radius: 50px;
@@ -62,18 +66,17 @@ body {
 .searchButton {
   background-color: hsl(0,0%,8.2%);
   color: hsl(0, 0%, 50%);
-  height: 7rem;
-  font-size: 4.5rem;
-  margin-top: 3rem;
+  height: 3rem;
+  font-size: 1.15rem;
   margin-left: 0;
   border: none;
-  padding: 0 1.75rem;
+  padding: 0 0.9rem;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
 }
 
 a.logout {
-  font-size: 2rem;
+  font-size: 0.75rem;
 }
 
 /* The red-effect on 'focus' */
@@ -109,7 +112,7 @@ input.searchInput:focus, button.searchButton:focus, input.searchInput:hover, but
 
 button.loginButton {
   position:relative;
-  padding: 10px 20px;
+  padding: 0.25rem  0.5rem;  /* 'This' changes the padding of the button. */
   border: none;
   background: none;
   cursor: pointer;
@@ -117,7 +120,7 @@ button.loginButton {
   font-family: "Roboto Slab", serif;
   /* font-weight: 900; */
   /* text-transform: uppercase; */
-  font-size: 30px;
+  font-size: 0.8rem;
   color: var(--text-color);
 
   background-color: var(--btn-color);
@@ -125,6 +128,11 @@ button.loginButton {
   border-radius: 4px;
   z-index: 0;
   overflow: hidden;
+}
+
+article.loginButtonFrontContent { /* This does not change the padding of the button. */
+  /* padding: 0.4rem 0 0.4rem 0.5rem; */
+padding: 0rem  0rem;
 }
 
 button.loginButton:focus {
@@ -231,7 +239,16 @@ a.logout:active {
 
 /* Extending Compatobility */
 /* https://stackoverflow.com/a/7354648/14597561 */
-@media screen and (min-width: 741px)   { /* tablet, landscape iPad, lo-res laptops ands desktops */
+@media screen and (min-width: 641px)   { /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .logoSearchLogin {
+    top: 43%;
+  }
+
+  .searchForm {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
   .logoImg {
     width: 20em;
   }
@@ -241,21 +258,21 @@ a.logout:active {
     width: 40.75rem;
     font-size: 1.5rem;
     padding: 2rem 0.25rem 2rem 2rem;
-    margin-top: 3rem;
   }
 
   .searchButton {
-    background-color: hsl(0,0%,8.2%);
-    color: hsl(0, 0%, 50%);
     height: 4rem;
     font-size: 2rem;
-    margin-top: 3rem;
-    margin-left: 0;
     padding: 0 1rem;
   }
 
   button.loginButton {
     font-size: 1.5rem;
+    padding: 0.625rem  1.25rem;
+  }
+
+  article.loginButtonFrontContent {
+    padding: 0;
   }
 
   a.logout {
