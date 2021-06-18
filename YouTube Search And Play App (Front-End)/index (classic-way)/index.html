@@ -19,19 +19,21 @@
 
     <!-- POST request to fetch data related to queryValue.  -->
     <form class="searchForm" action="/" method="post">
-      <input class="searchInput" id="queryId" type="search" name="queryValue" placeholder="Search" autocomplete="off"
-        value="Lorem Ipsum is simply dummy text of the printing and typesett."
-        required>
-      <button class="searchButton" type="submit" name="button">
-        &#5125;&#xFE0E;
-      </button>
+      <div class="searchInputContainer">
+        <input class="searchInput" id="queryId" type="search" name="queryValue" placeholder="Search" autocomplete="off"
+          value="Lorem Ipsum is simply dummy text of the printing and typesett."
+          required>
+        <button class="searchButton" type="submit" name="button">
+          &#5125;&#xFE0E;
+        </button>
+      </div>
     </form>
 
     <!-- <a class="login" href="auth/spotify"> -->
     <section class="login">
-      <button class="loginButton" style="--content: '';" onclick="location.href='auth/spotify';">
+      <button class="loginButton" style="--content: 'Login via Spotify';" onclick="location.href='auth/spotify';">
         <div class="left"></div>
-          <article class="loginButtonFrontContent">Spotify Login</article> <!-- The padding of the button, is made around 'this' text.  -->
+          Login via Spotify                        <!-- The padding of the button, is made around 'this' text.  -->
         <div class="right"></div>
       </button>
     </section>
