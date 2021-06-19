@@ -7,8 +7,14 @@ const https = require("https");
 // body-parser to read client's submitted queryValue
 const bodyParser = require("body-parser");
 
-
+// This fetches the data from API endpoint and parses it to JSON.
 const axios = require("axios");
+
+// To link the keys.
+const keys = require("./config/keys");
+
+// The library to encode/decode weird text returned from API endpoint.
+const he = require("he");
 
 // This app constant is created to be able to access the methods available in 'express' package.
 const app = express();
@@ -24,6 +30,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.use(express.static("public"));
+
 // ejs view engine has been used to use app.js variables into the output ejs file.
 app.set('view engine', 'ejs');
 
@@ -31,7 +39,6 @@ app.set('view engine', 'ejs');
 let i = 0;
 
 let query = "";
-let endpoint = "";
 
 let ytQueryResult = "";
 let ytCoverResult = "";
@@ -64,13 +71,16 @@ let urlOfYtAxiosGetFunc = "";
 // let ytResponse = "";             // Declare these two locally.
 // let ytExtractedResult = [];
 
-// AIzaSyCj80kCJOCJw0VzqkYqjfnQ9Kyxu-MbxMI
+
 // This function GETs data, parses it, allocates required values in an array.
 async function ytAxiosGetFunc(queryOfYtAxiosGetFunc, maxResultsOfYtAxiosGetFunc) {
 
   let ytExtractedResult = [];
-  apiKey = "AIzaSyC5asO20CAohIW_wEkgJB0XHVH4bOZSN5U"
-  urlOfYtAxiosGetFunc = "https://www.googleapis.com/youtube/v3/search?key=" + apiKey + "&part=snippet&order=relevance&type=video";
+  let ytVideoId = [];
+  let ytVideoThumb = [];
+  let ytVideoTitle = [];
+  let ytVideoChannel = [];
+  urlOfYtAxiosGetFunc = "https://www.googleapis.com/youtube/v3/search?key=" + keys.google.apiKey[0] + "&part=snippet&order=relevance&type=video&videoEmbeddable=true";
 
   try {
     let ytResponse = await axios({
@@ -85,10 +95,18 @@ async function ytAxiosGetFunc(queryOfYtAxiosGetFunc, maxResultsOfYtAxiosGetFunc)
     let ytResult = ytResponse.data;
 
     for (i = 0; i < (ytResult.items).length; i++) {
-      ytExtractedResult[i] = ytResult.items[i].id.videoId;
-      // console.log(ytExtractedResult);
+      ytVideoId[i] = ytResult.items[i].id.videoId;
+      ytVideoThumb[i] = ytResult.items[i].snippet.thumbnails.default.url;
+      ytVideoTitle[i] = he.decode(ytResult.items[i].snippet.title);
+      ytVideoChannel[i] = he.decode(ytResult.items[i].snippet.channelTitle);
     }
-    return (ytExtractedResult);
+
+    return {
+      id: ytVideoId,
+      thumb: ytVideoThumb,
+      title: ytVideoTitle,
+      channel: ytVideoChannel
+    };
   } catch (e) {
     console.log(e);
   }
@@ -104,7 +122,6 @@ app.post("/", async function(req, res) {
   console.log("ytQueryAppJs:");
   console.log(ytQueryAppJs);
 
-
   // Fetching 'cover' songs related to user's query and putting them in the array.
   if (query.includes("cover") == true) {
     ytCoverAppJs = await ytAxiosGetFunc(query, 8);
@@ -112,27 +129,37 @@ app.post("/", async function(req, res) {
     console.log(ytCoverAppJs);
 
     // Removing redundant values.
-    ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
+    ytCoverUniqueAppJs.id = compareAndRemove(ytCoverAppJs.id, ytQueryAppJs.id);
+    ytCoverUniqueAppJs.thumb = compareAndRemove(ytCoverAppJs.thumb, ytQueryAppJs.thumb);
+    ytCoverUniqueAppJs.title = compareAndRemove(ytCoverAppJs.title, ytQueryAppJs.title);
+    ytCoverUniqueAppJs.channel = compareAndRemove(ytCoverAppJs.channel, ytQueryAppJs.channel);
 
     console.log("ytCoverUniqueAppJs:");
     console.log(ytCoverUniqueAppJs);
   } else if (query.includes("live") == true) {
-    ytCoverAppJs = await ytAxiosGetFunc(query.replace("live", " cover "), 8);
+    ytCoverAppJs = await ytAxiosGetFunc(query.replace("live", " cover "), 4);
     console.log("ytCoverAppJs:");
     console.log(ytCoverAppJs);
 
     // Removing redundant values.
-    ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
+    ytCoverUniqueAppJs.id = compareAndRemove(ytCoverAppJs.id, ytQueryAppJs.id);
+    ytCoverUniqueAppJs.thumb = compareAndRemove(ytCoverAppJs.thumb, ytQueryAppJs.thumb);
+    ytCoverUniqueAppJs.title = compareAndRemove(ytCoverAppJs.title, ytQueryAppJs.title);
+    ytCoverUniqueAppJs.channel = compareAndRemove(ytCoverAppJs.channel, ytQueryAppJs.channel);
 
     console.log("ytCoverUniqueAppJs:");
     console.log(ytCoverUniqueAppJs);
   } else {
-    ytCoverAppJs = await ytAxiosGetFunc(query + " cover ", 8);
+    ytCoverAppJs = await ytAxiosGetFunc(query + " cover", 4);
     console.log("ytCoverAppJs:");
     console.log(ytCoverAppJs);
 
     // Removing redundant values.
-    ytCoverUniqueAppJs = compareAndRemove(ytCoverAppJs, ytQueryAppJs);
+    ytCoverUniqueAppJs.id = compareAndRemove(ytCoverAppJs.id, ytQueryAppJs.id);
+    ytCoverUniqueAppJs.thumb = compareAndRemove(ytCoverAppJs.thumb, ytQueryAppJs.thumb);
+    ytCoverUniqueAppJs.title = compareAndRemove(ytCoverAppJs.title, ytQueryAppJs.title);
+    ytCoverUniqueAppJs.channel = compareAndRemove(ytCoverAppJs.channel, ytQueryAppJs.channel);
+
     console.log("ytCoverUniqueAppJs:");
     console.log(ytCoverUniqueAppJs);
   }
@@ -144,27 +171,36 @@ app.post("/", async function(req, res) {
     console.log(ytLiveAppJs);
 
     // Removing redundant values.
-    ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytQueryAppJs.concat(ytCoverUniqueAppJs));
+    ytLiveUniqueAppJs.id = compareAndRemove(ytLiveAppJs.id, (ytQueryAppJs.id).concat(ytCoverUniqueAppJs.id));
+    ytLiveUniqueAppJs.thumb = compareAndRemove(ytLiveAppJs.thumb, (ytQueryAppJs.thumb).concat(ytCoverUniqueAppJs.thumb));
+    ytLiveUniqueAppJs.title = compareAndRemove(ytLiveAppJs.title, (ytQueryAppJs.title).concat(ytCoverUniqueAppJs.title));
+    ytLiveUniqueAppJs.channel = compareAndRemove(ytLiveAppJs.channel, (ytQueryAppJs.channel).concat(ytCoverUniqueAppJs.channel));
 
     console.log("ytLiveUniqueAppJs:");
     console.log(ytLiveUniqueAppJs);
   } else if (query.includes("cover") == true) {
-    ytLiveAppJs = await ytAxiosGetFunc(query.replace("cover", " live "), 8);
+    ytLiveAppJs = await ytAxiosGetFunc(query.replace("cover", " live "), 4);
     console.log("ytLiveAppJs:");
     console.log(ytLiveAppJs);
 
     // Removing redundant values.
-    ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytQueryAppJs.concat(ytCoverUniqueAppJs));
+    ytLiveUniqueAppJs.id = compareAndRemove(ytLiveAppJs.id, (ytQueryAppJs.id).concat(ytCoverUniqueAppJs.id));
+    ytLiveUniqueAppJs.thumb = compareAndRemove(ytLiveAppJs.thumb, (ytQueryAppJs.thumb).concat(ytCoverUniqueAppJs.thumb));
+    ytLiveUniqueAppJs.title = compareAndRemove(ytLiveAppJs.title, (ytQueryAppJs.title).concat(ytCoverUniqueAppJs.title));
+    ytLiveUniqueAppJs.channel = compareAndRemove(ytLiveAppJs.channel, (ytQueryAppJs.channel).concat(ytCoverUniqueAppJs.channel));
 
     console.log("ytLiveUniqueAppJs:");
     console.log(ytLiveUniqueAppJs);
   } else {
-    ytLiveAppJs = await ytAxiosGetFunc(query + " live ", 8);
+    ytLiveAppJs = await ytAxiosGetFunc(query + " live", 4);
     console.log("ytLiveAppJs:");
     console.log(ytLiveAppJs);
 
     // Removing redundant values.
-    ytLiveUniqueAppJs = compareAndRemove(ytLiveAppJs, ytQueryAppJs.concat(ytCoverUniqueAppJs));
+    ytLiveUniqueAppJs.id = compareAndRemove(ytLiveAppJs.id, (ytQueryAppJs.id).concat(ytCoverUniqueAppJs.id));
+    ytLiveUniqueAppJs.thumb = compareAndRemove(ytLiveAppJs.thumb, (ytQueryAppJs.thumb).concat(ytCoverUniqueAppJs.thumb));
+    ytLiveUniqueAppJs.title = compareAndRemove(ytLiveAppJs.title, (ytQueryAppJs.title).concat(ytCoverUniqueAppJs.title));
+    ytLiveUniqueAppJs.channel = compareAndRemove(ytLiveAppJs.channel, (ytQueryAppJs.channel).concat(ytCoverUniqueAppJs.channel));
 
     console.log("ytLiveUniqueAppJs:");
     console.log(ytLiveUniqueAppJs);
@@ -172,13 +208,18 @@ app.post("/", async function(req, res) {
 
   // The 'results' named EJS file is rendered and fed in response. The 'required' data is passed into it using the following variable(s).
   res.render("results", {
+    userEjs: req.user,
+    queryEjs: query,
     ytQueryEjs: ytQueryAppJs,
     ytCoverUniqueEjs: ytCoverUniqueAppJs,
     ytLiveUniqueEjs: ytLiveUniqueAppJs
   });
   console.log("Values to be sent for rendering: ");
+  console.log("ytQueryAppJs");
   console.log(ytQueryAppJs);
+  console.log("ytCoverUniqueAppJs");
   console.log(ytCoverUniqueAppJs);
+  console.log("ytLiveUniqueAppJs");
   console.log(ytLiveUniqueAppJs);
 
   // Emptying all the arrays.
