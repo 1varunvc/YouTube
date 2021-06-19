@@ -3,26 +3,118 @@
 <html lang="en" dir="ltr">
 
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="content-type" name="viewport" charset="utf-8" content="text/html; width=device-width, initial-scale=1">
   <title>YouTube</title>
+  <link rel="stylesheet" href="style/results.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
+  <section class="bodyContainer">
+
+    <a href="/"><img class="logo" src="img/on_platform_logo_dark.svg" alt=""></a>
+
+    <!-- POST request to fetch data related to queryValue.  -->
+      <form class="searchForm" action="/" method="post">
+        <div class="searchInputContainer">
+          <input class="searchInput" id="queryId" type="search" name="queryValue" placeholder="Search" autocomplete="off"
+            value="<%= queryEjs %>"
+            required>
+          <button class="searchButton" type="submit" name="button">
+            &#5125;&#xFE0E;
+          </button>
+        </div>
+      </form>
+
+  <section class="contentContainer">
+
+  <div class="nowPlaying"></div>
+
+  <a class="loginPrompt" href="auth/spotify"><em>Login with Spotify for better results.</em></a>
+
+  <div class="nowPlayingContainer"></div>
+
   <h3>Watch</h3>
-  <% for(i = 0; i < ytQueryEjs.length; i++) { %>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= ytQueryEjs[i] %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <% for(i = 0; i < Object.keys(ytQueryEjs).length; i++) { %>
+      <div id="ytQueryEjs<%= i %>" class="ytItem">
+        <img class="itemThumb" src="<%= ytQueryEjs.thumb[i] %>" alt="">
+        <div class="itemInfo">
+          <span class="itemTitle"><%= ytQueryEjs.title[i] %><br /></span>
+          <span class="itemChannel"><%= ytQueryEjs.channel[i] %><span>
+        </div>
+      </div>
+    <% } %>
+
+    <h3>Cover</h3>
+    <% for(i = 0; i < Object.keys(ytCoverUniqueEjs).length; i++) { %>
+      <div id="ytCoverUniqueEjs<%= i %>" class="item">
+        <img class="itemThumb"src="<%= ytCoverUniqueEjs.thumb[i] %>" alt="">
+        <div class="itemInfo">
+          <span class="itemTitle"><%= ytCoverUniqueEjs.title[i] %><br /></span>
+          <span class="itemChannel"><%= ytCoverUniqueEjs.channel[i] %><span>
+        </div>
+      </div>
+    <% } %>
+
+    <h3>Live</h3>
+    <% for(i = 0; i < Object.keys(ytLiveUniqueEjs).length; i++) { %>
+      <div id="ytLiveUniqueEjs<%= i %>" class="item">
+        <img class="itemThumb" src="<%= ytLiveUniqueEjs.thumb[i] %>" alt="">
+        <div class="itemInfo">
+          <span class="itemTitle"><%= ytLiveUniqueEjs.title[i] %><br /></span>
+          <span class="itemChannel"><%= ytLiveUniqueEjs.channel[i] %><span>
+        </div>
+      </div>
+    <% } %>
+
+  </section>
+
+<div class="footer"></div>
+
+</section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <script type="text/javascript">
+  <% for(i = 0; i < Object.keys(ytQueryEjs).length ;i++) { %>
+    $("#ytQueryEjs<%= i %>").on("click", () => {
+      $(".nowPlayingContainer").html(
+        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+      )
+      $(".nowPlaying").html("<h3>Now Playing</h3><iframe width='560' height='315' src='https://www.youtube.com/embed/<%= ytQueryEjs.id[i] %>' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+      $('html, body').animate({
+        scrollTop: $(".nowPlaying").offset().top
+    }, 50);
+    });
   <% } %>
 
-  <h3>Covers</h3>
-  <% for(i = 0; i < ytCoverUniqueEjs.length; i++) { %>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= ytCoverUniqueEjs[i] %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <% for(i = 0; i < Object.keys(ytCoverUniqueEjs).length ;i++) { %>
+    $("#ytCoverUniqueEjs<%= i %>").on("click", () => {
+      $(".nowPlayingContainer").html(
+        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+      )
+      $(".nowPlaying").html("<h3>Now Playing</h3><iframe width='560' height='315' src='https://www.youtube.com/embed/<%= ytCoverUniqueEjs.id[i] %>' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+      $('html, body').animate({
+        scrollTop: $(".nowPlayingContainer").offset().top
+      }, 50);
+    });
   <% } %>
 
-  <h3>Live Performance</h3>
-  <% for(i = 0; i < ytLiveUniqueEjs.length; i++) { %>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= ytLiveUniqueEjs[i] %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <% for(i = 0; i < Object.keys(ytLiveUniqueEjs).length ;i++) { %>
+    $("#ytLiveUniqueEjs<%= i %>").on("click", () => {
+      $(".nowPlayingContainer").html(
+        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+      )
+      $(".nowPlaying").html("<h3>Now Playing</h3><iframe width='560' height='315' src='https://www.youtube.com/embed/<%= ytLiveUniqueEjs.id[i] %>' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>");
+      $('html, body').animate({
+        scrollTop: $(".nowPlayingContainer").offset().top
+      }, 50);
+    });
   <% } %>
+
+  </script>
 
 
 </body>
