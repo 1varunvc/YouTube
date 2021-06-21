@@ -4,7 +4,6 @@ body {
   background-color: hsl(0, 0%, 0%);
   color: rgb(255,255,255);
   color: hsl(0, 0%, 100%);
-  font-family: 'Roboto Slab', serif;
 }
 
 /* Centering all the elements */
@@ -42,7 +41,7 @@ body {
 
 /* Sizing and decorating all the elements */
 .logoImg {
-  width: 9.5em;
+  width: 13.5rem;
   height: auto;
 }
 
@@ -119,6 +118,7 @@ input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webki
 
 .loginButton {
   box-sizing: border-box;
+  font-family: 'Lobster', cursive;
 }
 
 .login {
@@ -136,7 +136,6 @@ button.loginButton {
   border: none;
   background: none;
   cursor: pointer;
-  font-family: "Roboto Slab", serif;
   font-weight: 900;
   font-size: 0.8rem;
   color: rgb(255,255,255);
