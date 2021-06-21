@@ -2,8 +2,7 @@
 body {
   background-color: black;
   color: white;
-  font-family: 'Roboto Slab', serif;
-  /* font-family: 'Varela Round', sans-serif; */
+  font-family: 'Roboto', sans-serif;
 }
 
 /*============ Grid ============*/
@@ -34,9 +33,9 @@ body {
 
 /*============ Decoration and Alignment ============*/
 .logo {
-  width: 5rem;
-  height: auto;
-  margin: 0.2rem 0.5rem 0 0;
+  width: auto;
+  height: 2rem;
+  margin: 0 0.2rem 0 0;
 }
 
 .searchInputContainer {
@@ -51,7 +50,7 @@ body {
   color: hsl(0,0%,100%);
   /* background-color: maroon; */
   height: 2rem;
-  width: 88%;
+  width: 90%;
   font-size: 1rem;
   padding-left: 1rem;
   padding-right: 0rem;
@@ -69,7 +68,7 @@ body {
   border-radius: 50%;
 }
 
-/* The red-effect on 'focus' */
+/* The red-effect on 'focus' and 'hover' */
 .searchInputContainer:focus, .searchInputContainer:hover {
   border-color: rgb(255, 0, 0);
   border-color: hsla(0, 100%, 50%, 0.6);
@@ -95,6 +94,7 @@ body {
 a.loginPrompt {
   color: rgb(128, 128, 128);
   color: hsl(0, 0%, 50%);
+  font-family: 'Roboto Slab', serif;
   font-size: 0.75rem;
 }
 a.loginPrompt:link {
@@ -131,16 +131,35 @@ iframe {
   height: 100%;
 }
 
-/* Styling Item */
+/* Styling items in 'contentContainer' */
+.contentContainer {
+  margin: 0.55rem;
+}
+
+.itemHeading {
+  margin-top: 2rem;
+  margin-bottom: 0.7rem;
+  font-weight: 900;
+}
+
+.ytItem {
+  margin-bottom: 1rem;
+}
 .itemThumb {
-  /* width: 120px;
-  height: 90px; */
+  width: 2.9rem;
+  height: auto;
+  clip-path: inset(13.7% 0 13.7% 0);
 }
 .itemTitle {
-  font-size: 0.95rem;
-}
-.itemChannel {
   font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.itemChannel {
+  font-size: 0.7rem;
+  font-weight: 300;
+  margin: 0;
 }
 
 /* Setting itemInfo to be on the right of itemThumb */
@@ -155,6 +174,54 @@ iframe {
 
 .itemChannel {
   color: #bbbbbb;
+}
+
+/* Extending Compatibility */
+/* https://gist.github.com/gokulkrishh/242e68d1ee94ad05f488 */
+
+/* Samsung Galaxy Fold */
+@media screen and (min-width: 280px) and (max-width: 280px) {
+  .searchInput {
+    width: 85%;
+  }
+
+  .itemThumb {
+    width: 3.5rem;
+  }
+  .itemTitle {
+    font-size: 0.8rem;
+  }
+
+  .itemChannel {
+    font-size: 0.7rem;
+  }
+}
+
+/* ##Device = Low Resolution Tablets, Mobiles (Landscape) ##Screen = B/w 481px to 767px */
+@media screen and (min-width 481px) and (max-width: 767px) {
+  .searchInput {
+    width: 92.5%;
+  }
+}
+
+/* ##Device = Tablets, Ipads (landscape) ##Screen = B/w 768px to 1024px */
+@media screen and (min-width 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* Create new grid. */
+}
+
+/* ##Device = Tablets, Ipads (portrait) ##Screen = B/w 768px to 1024px */
+@media screen and (min-width 768px) and (max-width: 1024px) {
+
+}
+
+/* ##Device = Laptops, Desktops ##Screen = B/w 1025px to 1280px */
+@media screen and (min-width 1025px) and (max-width: 1280px) {
+
+}
+
+/* ##Device = Desktops ##Screen = 1281px to higher resolution desktops */
+@media screen and (min-width 1281px) {
+
 }
 
 /* @media screen and (min-width: 641px) {

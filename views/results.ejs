@@ -14,7 +14,7 @@
 
   <section class="bodyContainer">
 
-    <a href="/"><img class="logo" src="img/on_platform_logo_dark.svg" alt=""></a>
+    <a href="/"><img class="logo" src="../img/one_music_logo_jpg.jpg" alt="one_music_logo_short"></a>
 
     <!-- POST request to fetch data related to queryValue.  -->
       <form class="searchForm" action="/" method="post">
@@ -39,7 +39,7 @@
   <h3>Watch</h3>
     <% for(i = 0; i < Object.keys(ytQueryEjs).length; i++) { %>
       <div id="ytQueryEjs<%= i %>" class="ytItem">
-        <img class="itemThumb" src="<%= ytQueryEjs.thumb[i] %>" alt="">
+        <img class="itemThumb" src="<%= ytQueryEjs.thumb[i] %>" width="" height="" alt="">
         <div class="itemInfo">
           <span class="itemTitle"><%= ytQueryEjs.title[i] %><br /></span>
           <span class="itemChannel"><%= ytQueryEjs.channel[i] %><span>
@@ -49,8 +49,8 @@
 
     <h3>Cover</h3>
     <% for(i = 0; i < Object.keys(ytCoverUniqueEjs).length; i++) { %>
-      <div id="ytCoverUniqueEjs<%= i %>" class="item">
-        <img class="itemThumb"src="<%= ytCoverUniqueEjs.thumb[i] %>" alt="">
+      <div id="ytCoverUniqueEjs<%= i %>" class="ytItem">
+        <img class="itemThumb"src="<%= ytCoverUniqueEjs.thumb[i] %>" width="" height="" alt="">
         <div class="itemInfo">
           <span class="itemTitle"><%= ytCoverUniqueEjs.title[i] %><br /></span>
           <span class="itemChannel"><%= ytCoverUniqueEjs.channel[i] %><span>
@@ -60,8 +60,8 @@
 
     <h3>Live</h3>
     <% for(i = 0; i < Object.keys(ytLiveUniqueEjs).length; i++) { %>
-      <div id="ytLiveUniqueEjs<%= i %>" class="item">
-        <img class="itemThumb" src="<%= ytLiveUniqueEjs.thumb[i] %>" alt="">
+      <div id="ytLiveUniqueEjs<%= i %>" class="ytItem">
+        <img class="itemThumb" src="<%= ytLiveUniqueEjs.thumb[i] %>" width="" height="" alt="">
         <div class="itemInfo">
           <span class="itemTitle"><%= ytLiveUniqueEjs.title[i] %><br /></span>
           <span class="itemChannel"><%= ytLiveUniqueEjs.channel[i] %><span>
@@ -115,7 +115,6 @@
   <% } %>
 
   </script>
-
 
 </body>
 
