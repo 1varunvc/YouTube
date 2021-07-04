@@ -2,9 +2,11 @@
 <html dir="ltr" lang="en">
 
 <head>
-  <meta http-equiv="content-type" name="viewport" charset="utf-8" content="text/html; width=device-width, initial-scale=1">
+  <!-- <meta http-equiv="content-type" name="viewport" charset="utf-8" content="text/html; width=device-width, initial-scale=1"> -->
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
   <!-- <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"> -->
-  <title>YouTube</title>
+
+  <title>One Music (YouTube)</title>
   <link rel="stylesheet" href="./YouTube_files/results.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -14,7 +16,7 @@
 
   <section class="bodyContainer">
 
-    <a class="" href="http://localhost:3000/"><img class="logo" src="one_music_logo_jpg.jpg" alt="one_music_logo"></a>
+    <a class="" href="http://localhost:3000/"><img class="logo" src="./img/logo/one_music-short-4.0.svg" alt="O Music"></a>
 
     <!-- POST request to fetch data related to queryValue.  -->
     <form class="searchForm" action="/" method="post">
@@ -156,7 +158,19 @@
 
     </section>
 
-    <div class="footer"></div>
+    <section class="footer">
+
+      <a class="logout" href="auth/logout">Logout</a>
+
+      <hr>
+
+      <div class="downloads">
+        <!-- <img class="pwa" src="./img/app_store/pwa.png" alt="pwa_badge" /> -->
+        <img class="googlePlay" src="./img/app_store/google_play.png" alt="google_play_badge" />
+        <img class="appStore" src="./img/app_store/app_store.svg" alt="app_store_badge" />
+      </div>
+
+    </section>
 
   </section>
 
@@ -165,7 +179,7 @@
   <script type="text/javascript">
     $("#ytQueryEjs0").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/PN4kDqLhdzw' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -177,7 +191,7 @@
 
     $("#ytQueryEjs1").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/tr9rwtj3EB4' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -189,7 +203,7 @@
 
     $("#ytQueryEjs2").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/4X7AsBRrMo8' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -201,7 +215,7 @@
 
     $("#ytQueryEjs3").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/89ItiirL4tc' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -215,7 +229,7 @@
 
     $("#ytCoverUniqueEjs0").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/Hfe_21WNzyw' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -227,7 +241,7 @@
 
     $("#ytCoverUniqueEjs1").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/N8WZtxbck-Q' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -239,7 +253,7 @@
 
     $("#ytCoverUniqueEjs2").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/M3gEtOmMsOU' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -251,7 +265,7 @@
 
     $("#ytCoverUniqueEjs3").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/8yZqdd4OIqQ' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -265,7 +279,7 @@
 
     $("#ytLiveUniqueEjs0").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/zygTyjVWrik' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -277,7 +291,7 @@
 
     $("#ytLiveUniqueEjs1").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/y_JMBlCqh28' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -289,7 +303,7 @@
 
     $("#ytLiveUniqueEjs2").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/doUIX70teAs' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -301,7 +315,7 @@
 
     $("#ytLiveUniqueEjs3").on("click", () => {
       $(".nowPlayingContainer").html(
-        "<h3>Now Playing</h3><div class='nowPlayingYt'></div>"
+        "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
       )
       $(".nowPlayingYt").html(
         "<iframe width='560' height='315' src='https://www.youtube.com/embed/jpJrJyjOOvY' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>"
@@ -310,6 +324,10 @@
         scrollTop: $(".nowPlayingContainer").offset().top
       }, 50);
     });
+
+    if($(window).width() > 767) {
+      $(".logo").attr("src", "./img/logo/one_music-short-4.0-long-2.0.svg");
+    }
   </script>
 </body>
 
