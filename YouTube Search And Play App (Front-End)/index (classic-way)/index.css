@@ -6,7 +6,7 @@ body {
   color: hsl(0, 0%, 100%);
 }
 
-/* Centering all the elements */
+/* Locating all the elements */
 .logoSearchLogin {
   position: absolute;
   top: 42%;
@@ -34,6 +34,16 @@ body {
 }
 
 .login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.downloads {
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,7 +91,21 @@ body {
   border-radius: 50%;
 }
 
+.pwa {
+  height: 2.204rem;
+}
+
+.googlePlay {
+  height: 3.335rem;
+}
+
+.appStore {
+  height: 2.31rem;
+  margin-top: 0.04rem;
+}
+
 a.logout {
+  font-family: 'Roboto Slab', serif;
   font-size: 0.75rem;
 }
 

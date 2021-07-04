@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
-  <title>One Music</title>
+  <title>One Music (YouTube)</title>
   <link rel="stylesheet" href="index.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap&family=Roboto+Slab:wght@400" rel="stylesheet">
 </head>
 
 <body onload="onPageLoad()">
@@ -14,7 +14,7 @@
   <section class="logoSearchLogin">
 
     <header>
-       <a class="logo" href="http://localhost:3000/"><img class="logoImg" src="one_music_logo_long.png" alt="one_music_logo_long.png"></a>
+       <a class="logo" href="http://localhost:3000/"><img class="logoImg" src="img/logo/one_music-short-2.3.3-long-2.0-loop_count-1.gif" alt="O Music"></a>
     </header>
 
     <!-- POST request to fetch data related to queryValue.  -->
@@ -29,7 +29,6 @@
       </div>
     </form>
 
-    <!-- <a class="login" href="auth/spotify"> -->
     <section class="login">
       <button class="loginButton" style="--content: 'Login with Spotify';" onclick="location.href='auth/spotify';">
         <div class="left"></div>
@@ -38,13 +37,26 @@
       </button>
     </section>
 
-    <!-- </a> -->
-
   </section>
 
-  <section class="logout">
     <a class="logout" href="auth/logout">Logout</a>
+
+  <section class="downloads">
+    <!-- <img class="pwa" src="img/app-store/pwa.png" alt="pwa_badge"> -->
+    <img class="googlePlay" src="img/app-store/google_play.png" alt="google_play_badge">
+    <img class="appStore" src="./img/app-store/app_store.svg" alt="app_store_badge">
   </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <script type="text/javascript">
+
+  if($(window).width() > 767) {
+      $(".logo").html(`<video autoplay="autoplay">
+        <source class="logoImg" src="vid/one_music-short-2.3.3-long-2.0.mp4" type="video/mp4" />
+      </video>`);
+    }
+  </script>
 
 </body>
 
