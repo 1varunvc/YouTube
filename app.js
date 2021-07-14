@@ -55,7 +55,7 @@ let ytLiveUniqueAppJs = [];
 // The page to load when the browser (client) makes request to GET something from the server on "/", i.e., from the homepage.
 // This GET request is made as soon as the homepage url is entered in the address bar od browser, automatically.
 app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/index.html");
+  res.render("index");
 });
 
 // https://stackoverflow.com/a/14930567/14597561
@@ -96,7 +96,7 @@ async function ytAxiosGetFunc(queryOfYtAxiosGetFunc, maxResultsOfYtAxiosGetFunc)
 
     for (i = 0; i < (ytResult.items).length; i++) {
       ytVideoId[i] = ytResult.items[i].id.videoId;
-      ytVideoThumb[i] = ytResult.items[i].snippet.thumbnails.default.url;
+      ytVideoThumb[i] = ytResult.items[i].snippet.thumbnails.medium.url;
       ytVideoTitle[i] = he.decode(ytResult.items[i].snippet.title);
       ytVideoChannel[i] = he.decode(ytResult.items[i].snippet.channelTitle);
     }
