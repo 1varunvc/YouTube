@@ -12,7 +12,7 @@ body {
   display: grid;
   grid-gap: 3px;
   grid-template-columns: auto 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
 }
 
 .logo {
@@ -26,15 +26,20 @@ body {
 }
 
 .contentContainer {
-  position: relative;
+  /* position: relative;        /* I do not remember why it was set to relative. */
   grid-column: 1 / -1;
-  grid-row: 2 / -1;
+  grid-row: 2 / 3;
+}
+
+.footer {
+  grid-column: 1 / -1;
+  grid-row: 3 / -1;
 }
 
 /*============ Decoration and Alignment ============*/
 .logo {
   width: auto;
-  height: 2rem;
+  height: 1.8rem;
   margin: 0 0.2rem 0 0;
 }
 
@@ -62,6 +67,8 @@ body {
   background-color: hsl(0,0%,8.2%);
   color: hsl(0, 0%, 50%);
   /* background-color: black; */
+  position: absolute;
+  right: 1rem;
   height: 1.9rem;
   font-size: 1em;
   border: none;
@@ -131,6 +138,20 @@ iframe {
   height: 100%;
 }
 
+/* Setting itemInfo to be on the right of itemThumb */
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.itemInfo {
+  padding-left: 0.5rem;
+}
+
+.itemChannel {
+  color: #bbbbbb;
+}
+
 /* Styling items in 'contentContainer' */
 .contentContainer {
   margin: 0.55rem;
@@ -142,14 +163,21 @@ iframe {
   font-weight: 900;
 }
 
-.ytItem {
-  margin-bottom: 1rem;
+.item {
+  margin-bottom: 0.6rem;
+  border-radius: 1.5px;
 }
+
 .itemThumb {
   width: 2.9rem;
   height: auto;
+  border-radius: 1.5px;
+}
+
+.itemThumbVideo {
   clip-path: inset(13.7% 0 13.7% 0);
 }
+
 .itemTitle {
   font-size: 0.85rem;
   font-weight: 500;
@@ -162,18 +190,64 @@ iframe {
   margin: 0;
 }
 
-/* Setting itemInfo to be on the right of itemThumb */
-.ytItem {
+/*============== Footer ==============*/
+a.logout {
   display: flex;
   align-items: center;
+  justify-content: center;
+  font-family: 'Roboto Slab', serif;
+  font-size: 0.75rem;
 }
 
-.itemInfo {
-  padding-left: 0.5rem;
+a.logout:link {
+  color: rgb(128, 128, 128);
+  color: hsl(0, 0%, 50%);
+  text-decoration: none;
 }
 
-.itemChannel {
-  color: #bbbbbb;
+a.logout:visited {
+  color: rgb(128, 128, 128);
+  color: hsl(0, 0%, 50%);
+  text-decoration: none;
+}
+
+a.logout:hover {
+  color: rgb(221, 221, 221);
+  color: hsl(0, 0%, 86.7%);
+  text-decoration: underline;
+}
+
+a.logout:active {
+  color: rgb(221, 221, 221);
+  color: hsl(0, 0%, 86.7%);
+  text-decoration: underline;
+}
+
+hr {
+  border-color: rgb(128, 128, 128);
+  border-color: hsl(0, 0%, 50%);
+  width: 1rem;
+  margin-top: 0.4rem;
+  border-width: 1px 0 0 0;
+}
+
+.downloads {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .pwa {
+  height: 2.204rem;
+} */
+
+.googlePlay {
+  height: 3.335rem;
+}
+
+.appStore {
+  height: 2.31rem;
+  margin-top: 0.04rem;
 }
 
 /* Extending Compatibility */
@@ -197,30 +271,106 @@ iframe {
   }
 }
 
-/* ##Device = Low Resolution Tablets, Mobiles (Landscape) ##Screen = B/w 481px to 767px */
-@media screen and (min-width 481px) and (max-width: 767px) {
+/* Device = Low Resolution Tablets, Mobiles (Landscape); Screen = B/w 481px to 767px */
+@media screen and (min-width: 481px) and (max-width: 767px) {
   .searchInput {
     width: 92.5%;
   }
 }
 
-/* ##Device = Tablets, Ipads (landscape) ##Screen = B/w 768px to 1024px */
-@media screen and (min-width 768px) and (max-width: 1024px) and (orientation: landscape) {
-  /* Create new grid. */
+/* Device = Tablets, Ipads (portrait and landscape); Screen = B/w 768px to 1024px */
+@media screen and (min-width: 768px) {
+  /*============ Grid ============*/
+  .bodyContainer {
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .searchInputContainer {
+    grid-column: 2 / 3;
+  }
+
+  .contentContainer {
+    grid-column: 2 / 3;
+  }
+
+  /*============ Decoration and Alignment ============*/
+  .logo, .searchInputContainer {
+    margin-top: 0.5rem;
+  }
+
+  .searchInput {
+    height: 2.5rem;
+    font-size: 1.1rem;
+    padding-left: 1.2rem;
+  }
+
+  .searchButton {
+    right: 19%;
+    height: 2.5rem;
+    font-size: 1.1rem;
+  }
+
+  .itemThumb {
+    width: 4rem;
+  }
+  .itemTitle {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .itemChannel {
+    font-size: 0.8rem;
+  }
 }
 
-/* ##Device = Tablets, Ipads (portrait) ##Screen = B/w 768px to 1024px */
-@media screen and (min-width 768px) and (max-width: 1024px) {
+/* Device = Laptops, Desktops; Screen = B/w 1025px to 1280px */
+@media screen and (min-width: 1025px){
+  /*============ Grid ============*/
+  .bodyContainer {
+    grid-template-columns: 1fr 3fr 1fr;
+  }
 
+  /*============ Decoration and Alignment ============*/
+  .searchInput {
+    height: 2.7rem;
+    width: 90%;
+    font-size: 1.3rem;
+    padding-left: 1.3rem;
+  }
+
+  .searchButton {
+    right: 21.5%;
+    height: 2.7rem;
+    font-size: 1.3rem;
+  }
+
+  .itemHeading {
+    font-size: 1.4rem;
+  }
+
+  .itemThumb {
+    width: 3.5rem;
+  }
+
+  .itemInfo {
+    padding-left: 1rem;
+  }
+
+  .itemTitle {
+    font-size: 1rem;
+    margin-bottom: 0.22rem;
+  }
+
+  .itemChannel {
+    font-size: 0.9rem;
+  }
 }
 
-/* ##Device = Laptops, Desktops ##Screen = B/w 1025px to 1280px */
-@media screen and (min-width 1025px) and (max-width: 1280px) {
+/* Device = Desktops; Screen = 1281px to higher resolution desktops */
+@media screen and (min-width: 1281px) {
 
-}
-
-/* ##Device = Desktops ##Screen = 1281px to higher resolution desktops */
-@media screen and (min-width 1281px) {
+  /* CSS */
 
 }
 
