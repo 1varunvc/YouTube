@@ -3,10 +3,12 @@
 
 <head>
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+
   <title>One Music (YouTube)</title>
   <link rel="stylesheet" href="index.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap&family=Roboto+Slab:wght@400" rel="stylesheet">
+  <link rel="icon" href="img/logo/one_music-short-4.0.svg" type="image/svg">
 </head>
 
 <body onload="onPageLoad()">
@@ -14,7 +16,7 @@
   <section class="logoSearchLogin">
 
     <header>
-       <a class="logo" href="http://localhost:3000/"><img class="logoImg" src="img/logo/one_music-short-2.3.3-long-2.0-loop_count-1.gif" alt="O Music"></a>
+       <a class="logo" href="http://localhost:3000/"><img class="logoImg" src="img/logo/one_music-short-2.3.3-long-2.0-loop_count-1.gif" alt="One Music"></a>
     </header>
 
     <!-- POST request to fetch data related to queryValue.  -->
@@ -47,15 +49,15 @@
     <img class="appStore" src="./img/app-store/app_store.svg" alt="app_store_badge">
   </section>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
   <script type="text/javascript">
 
-  if($(window).width() > 767) {
-      $(".logo").html(`<video autoplay="autoplay">
-        <source class="logoImg" src="vid/one_music-short-2.3.3-long-2.0.mp4" type="video/mp4" />
-      </video>`);
-    }
+  if(window.outerWidth > 767) {
+    document.getElementById("header").innerHTML = `
+    <video autoplay='autoplay'>
+      <source class='logoImg' src='vid/one_music-short-2.3.3-long-2.0.mp4' type='video/mp4' />
+    </video>
+    `;
+  }
   </script>
 
 </body>

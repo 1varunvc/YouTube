@@ -10,13 +10,14 @@
   <link rel="stylesheet" href="./YouTube_files/results.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="img/logo/one_music-short-4.0.svg" type="image/svg+xml">
 </head>
 
 <body>
 
   <section class="bodyContainer">
 
-    <a class="" href="http://localhost:3000/"><img class="logo" src="./img/logo/one_music-short-4.0.svg" alt="O Music"></a>
+    <a class="" href="http://localhost:3000/"><img class="logo" src="./img/logo/one_music-short-4.0.svg" alt="One Music"></a>
 
     <!-- POST request to fetch data related to queryValue.  -->
     <form class="searchForm" action="/" method="post">
@@ -177,6 +178,10 @@
   <script src="YouTube_files/jquery.js"></script>
 
   <script type="text/javascript">
+    if($(window).width() > 767) {
+      $(".logo").attr("src", "./img/logo/one_music-short-4.0-long-2.0.svg");
+    }
+
     $("#ytQueryEjs0").on("click", () => {
       $(".nowPlayingContainer").html(
         "<h3 class='itemHeading' style='margin-bottom: 1rem;'>Now Playing</h3><div class='nowPlayingYt'></div>"
@@ -324,10 +329,6 @@
         scrollTop: $(".nowPlayingContainer").offset().top
       }, 50);
     });
-
-    if($(window).width() > 767) {
-      $(".logo").attr("src", "./img/logo/one_music-short-4.0-long-2.0.svg");
-    }
   </script>
 </body>
 
